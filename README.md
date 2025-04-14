@@ -1,12 +1,11 @@
 # Frappe React Components
 
-Official React components for Frappe Framework. Can be used as:
+React components for Frappe Framework UI. Can be used as:
 - Git submodule in Frappe apps
-- NPM package
 
 ## Installation Options
 
-### Option 1: As Git Submodule
+### As Git Submodule
 
 1. Add as submodule to your project:
 ```bash
@@ -24,18 +23,6 @@ npm run build
 ```
 
 4. Link the built files in your Frappe app's assets.
-
-### Option 2: As NPM Package
-
-1. Install the package:
-```bash
-npm install @frappe/frappe-react
-```
-
-2. Import components in your React app:
-```js
-import { Button, FormControl } from '@frappe/frappe-react'
-```
 
 ## Development Setup
 
@@ -99,9 +86,7 @@ npm test
 3. Add tests if applicable
 4. Submit a pull request
 
-## License
-MIT
-
+## Company
 Developed by Techseria
 
 Released by Techseria
