@@ -69,11 +69,20 @@ This documentation provides in-depth details for each React component available 
 
 ## Getting Started
 
-To install the library, run:
+The Frappe-React library is not currently published on npm. To use it in your project, you have a couple of options:
 
-```bash
-npm install frappe-react
-```
+1. **Add as a Git Submodule:** You can add the frappe-react repository as a submodule to your application.
+   Example:
+   ```bash
+   git submodule add https://github.com/frappe/frappe-react.git path/to/frappe-react
+   ```
+   Then, import components from the local repository within your project.
+
+2. **Checkout the Repository:** Alternatively, you can clone the frappe-react repository directly into your project and reference the components.
+   ```bash
+   git clone https://github.com/frappe/frappe-react.git
+   ```
+   Then, import components relative to that location.
 
 Ensure that your project’s TypeScript configuration is properly set up for JSX and React. The library's source code and prop interfaces are available to promote consistency, ease of debugging, and rapid development.
 
