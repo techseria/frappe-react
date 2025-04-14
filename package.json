@@ -1,0 +1,74 @@
+{
+  "name": "frappe-react",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Official React components for Frappe Framework",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/techseria/frappe-react.git"
+  },
+  "keywords": [
+    "frappe",
+    "react",
+    "components",
+    "ui"
+  ],
+  "author": "Techseria",
+  "license": "AGPL 3.0",
+  "bugs": {
+    "url": "https://github.com/techseria/frappe-react/issues"
+  },
+  "homepage": "https://github.com/techseria/frappe-react#readme",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "build:lib": "vite build --config vite.lib.config.ts",
+    "prepublishOnly": "npm run build:lib",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@floating-ui/react": "^0.27.7",
+    "@headlessui/react": "^2.2.1",
+    "@reduxjs/toolkit": "^2.6.1",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/react-window": "^1.8.8",
+    "feather-icons": "^4.29.2",
+    "i18next": "^24.2.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-i18next": "^15.4.1",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.5.0",
+    "react-window": "^1.8.11",
+    "redux": "^5.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/feather-icons": "^4.29.4",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "jsdom": "^26.1.0",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.24.1",
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^3.1.1"
+  }
+}
