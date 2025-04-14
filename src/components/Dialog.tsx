@@ -8,28 +8,39 @@ type DialogIcon = {
   appearance?: 'warning' | 'info' | 'danger' | 'success'
 }
 
-type IconName = 
-  | 'delete' | 'info' | 'search' | 'repeat' | 'anchor' | 'bold' | 'link' 
-  | 'map' | 'filter' | 'code' | 'menu' | 'table' | 'video' | 'circle' 
+type IconName =
+  | 'delete' | 'info' | 'search' | 'repeat' | 'anchor' | 'bold' | 'link'
+  | 'map' | 'filter' | 'code' | 'menu' | 'table' | 'video' | 'circle'
   | 'image' | 'target' | 'type' | 'x' | 'key' | 'zoom-out'
   // Add all other supported icon names here
 
-type DialogOptions = {
+export type DialogOptions = { // Export DialogOptions
   title?: string
   message?: string
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl'
   icon?: DialogIcon | string
-  actions?: DialogAction[]
+  actions?: DialogAction[] // Use the exported DialogAction type
   position?: 'top' | 'center'
 }
 
-type DialogActionContext = {
+export type DialogActionContext = { // Export DialogActionContext
   close: () => void
 }
 
-type DialogAction = ButtonProps & {
-  onClick?: (context: DialogActionContext) => void | Promise<void>
-}
+// Define DialogAction with specific props needed, avoiding full ButtonProps intersection
+export type DialogAction = {
+  label?: string; // Change label to string | undefined to match ButtonProps
+  variant?: ButtonProps['variant']; // Use specific types from ButtonProps
+  theme?: ButtonProps['theme'];
+  icon?: ButtonProps['icon'];
+  iconLeft?: ButtonProps['iconLeft'];
+  iconRight?: ButtonProps['iconRight'];
+  loading?: boolean; // Keep loading state separate
+  disabled?: boolean; // Keep disabled state separate
+  // Define the specific onClick signature expected by Dialog
+  onClick?: (context: DialogActionContext) => void | Promise<void>;
+  // Add any other ButtonProps needed by Dialog actions explicitly
+};
 
 interface DialogProps {
   open: boolean
@@ -62,8 +73,8 @@ export function Dialog({
     }
   }
 
-  const icon = typeof options.icon === 'string' 
-    ? { name: options.icon as IconName } 
+  const icon = typeof options.icon === 'string'
+    ? { name: options.icon as IconName }
     : options.icon
 
   const dialogPositionClasses = {
@@ -84,7 +95,7 @@ export function Dialog({
       danger: 'text-ink-red-4',
       success: 'text-ink-green-3',
     }
-    
+
     return {
       bg: appearance ? bgClasses[appearance] : 'bg-surface-gray-2',
       text: appearance ? textClasses[appearance] : 'text-ink-gray-5'
@@ -175,7 +186,10 @@ export function Dialog({
                             </HeadlessDialog.Title>
                           </div>
                           <Button variant="ghost" onClick={handleClose}>
-                            {/* Close icon SVG */}
+                            {/* Placeholder for Close Icon SVG or Component */}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
                           </Button>
                         </div>
 
@@ -191,17 +205,20 @@ export function Dialog({
                   {(options.actions?.length || children) && (
                     <div className="px-4 pb-7 pt-4 sm:px-6">
                       <div className="space-y-2">
-                        {options.actions?.map((action, index) => (
-                          <Button
-                            key={index}
-                            className="w-full"
-                            loading={loadingActions[index]}
-                            {...action}
-                            onClick={() => handleActionClick(action, index)}
-                          >
-                            {action.label}
-                          </Button>
-                        ))}
+                        {options.actions?.map((action, index) => { // Explicit block
+                          const { onClick, ...buttonProps } = action; // Separate props
+                          return ( // Explicit return
+                            <Button
+                              key={index}
+                              className="w-full"
+                              loading={loadingActions[index]}
+                              {...buttonProps} // Spread compatible props
+                              onClick={() => handleActionClick(action, index)} // Use wrapper handler
+                            >
+                              {/* Label is passed via {...buttonProps}, no need for children here */}
+                            </Button>
+                          ); // Semicolon for return
+                        })} {/* Correct closing brace and parenthesis for map */}
                       </div>
                     </div>
                   )}
