@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import { useDrag } from 'react-dnd';
 import type { EventType } from './types';
 
@@ -7,6 +8,9 @@ interface DraggableEventProps {
 }
 
 export function DraggableEvent({ event, children }: DraggableEventProps) {
+  const dragRef = useRef<HTMLDivElement>(null);
+  const resizeStartRef = useRef<HTMLDivElement>(null);
+  const resizeEndRef = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'CALENDAR_EVENT',
     item: { event, sourceView: 'week' }, // Default to week view for now
@@ -27,7 +31,10 @@ export function DraggableEvent({ event, children }: DraggableEventProps) {
 
   return (
     <div
-      ref={drag}
+      ref={(node) => {
+        dragRef.current = node;
+        drag(node);
+      }}
       style={{
         opacity: isDragging ? 0.5 : 1,
         cursor: 'move',
@@ -36,7 +43,10 @@ export function DraggableEvent({ event, children }: DraggableEventProps) {
     >
       {children}
       <div 
-        ref={resizeStart}
+        ref={(node) => {
+          resizeStartRef.current = node;
+          resizeStart(node);
+        }}
         style={{
           position: 'absolute',
           top: 0,
@@ -48,7 +58,10 @@ export function DraggableEvent({ event, children }: DraggableEventProps) {
         }}
       />
       <div
-        ref={resizeEnd} 
+        ref={(node) => {
+          resizeEndRef.current = node;
+          resizeEnd(node);
+        }}
         style={{
           position: 'absolute',
           bottom: 0,

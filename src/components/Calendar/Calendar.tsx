@@ -103,7 +103,6 @@ export default function Calendar({
         {view === 'month' ? (
           <CalendarMonthly
             events={events}
-            currentMonth={currentMonth}
             currentMonthDates={getCalendarDates(currentMonth, currentYear)}
             onEventDrop={handleEventDrop}
           />

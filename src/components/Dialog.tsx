@@ -1,18 +1,12 @@
 import { Dialog as HeadlessDialog, Transition } from '@headlessui/react'
 import { Fragment, ReactNode, useEffect, useState } from 'react'
 import { Button, ButtonProps } from './Button/Button'
-import { FeatherIcon } from './FeatherIcon'
+import { FeatherIcon, FeatherIconName } from './FeatherIcon';
 
 type DialogIcon = {
-  name: IconName
+  name: FeatherIconName
   appearance?: 'warning' | 'info' | 'danger' | 'success'
 }
-
-type IconName =
-  | 'delete' | 'info' | 'search' | 'repeat' | 'anchor' | 'bold' | 'link'
-  | 'map' | 'filter' | 'code' | 'menu' | 'table' | 'video' | 'circle'
-  | 'image' | 'target' | 'type' | 'x' | 'key' | 'zoom-out'
-  // Add all other supported icon names here
 
 export type DialogOptions = { // Export DialogOptions
   title?: string
@@ -74,8 +68,8 @@ export function Dialog({
   }
 
   const icon = typeof options.icon === 'string'
-    ? { name: options.icon as IconName }
-    : options.icon
+    ? { name: options.icon as FeatherIconName }
+    : options.icon as DialogIcon
 
   const dialogPositionClasses = {
     center: 'justify-center',

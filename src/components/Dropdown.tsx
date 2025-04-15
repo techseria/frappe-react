@@ -10,15 +10,16 @@ export interface DropdownOption {
 export interface DropdownProps {
   options: DropdownOption[];
   children: React.ReactNode;
+  className?: string;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({ options, children }) => {
+export const Dropdown: React.FC<DropdownProps> = ({ options, children, className }) => {
   const [open, setOpen] = useState(false);
   
   const filteredOptions = options.filter(option => option.condition());
 
   return (
-    <div className="relative inline-block">
+    <div className={`relative inline-block ${className || ''}`}>
       <div onClick={() => setOpen(!open)}>
         {children}
       </div>

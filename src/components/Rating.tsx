@@ -16,8 +16,7 @@ export default function Rating({
   label,
   readOnly = false,
   size = 'md',
-  onChange,
-}: RatingProps) {
+}: Omit<RatingProps, 'onChange'>) {
   const [rating, setRating] = useState(value)
   const [hoveredRating, setHoveredRating] = useState(0)
 
@@ -47,11 +46,6 @@ export default function Rating({
     ].join(' ')
   }
 
-  const handleClick = (index: number) => {
-    if (readOnly) return
-    setRating(index)
-    onChange?.(index)
-  }
 
   return (
     <div className="space-y-1">
@@ -70,7 +64,6 @@ export default function Rating({
             <FeatherIcon
               name="star"
               className={`text-transparent mr-0.5 ${iconClasses(index + 1)}`}
-              onClick={() => handleClick(index + 1)}
             />
           </div>
         ))}

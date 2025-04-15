@@ -5,14 +5,12 @@ import type { EventType } from './types';
 
 export interface CalendarMonthlyProps {
   events: EventType[];
-  currentMonth: number;
   currentMonthDates: Date[];
   onEventDrop: (event: EventType, date: Date) => void;
 }
 
 export const CalendarMonthly: React.FC<CalendarMonthlyProps> = ({
   events,
-  currentMonth,
   currentMonthDates,
   onEventDrop,
 }: CalendarMonthlyProps) => {

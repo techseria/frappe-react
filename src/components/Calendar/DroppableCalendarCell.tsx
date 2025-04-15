@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import type { EventType, DropResult } from './types';
 
@@ -14,6 +15,7 @@ export function DroppableCalendarCell({
   onDrop,
   children,
 }: DroppableCalendarCellProps) {
+  const dropRef = useRef<HTMLDivElement>(null);
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ['CALENDAR_EVENT', 'RESIZE_HANDLE'],
     drop: (item: { event: EventType; resizeEdge?: 'start' | 'end'; sourceView?: 'month' | 'week' | 'day' }) => {
@@ -38,7 +40,10 @@ export function DroppableCalendarCell({
 
   return (
     <div
-      ref={drop}
+      ref={(node) => {
+        dropRef.current = node;
+        drop(node);
+      }}
       style={{
         backgroundColor: isOver ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
         height: '100%',
