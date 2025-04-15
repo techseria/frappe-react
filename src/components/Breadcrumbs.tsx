@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Dropdown } from './Dropdown'
 import { Button } from './Button/Button'
+import { FeatherIcon } from './FeatherIcon'
 
 interface BreadcrumbItem {
   label: string
@@ -28,8 +29,9 @@ export function Breadcrumbs({ items = [] }: BreadcrumbsProps) {
 
   const dropdownItems = windowWidth <= 640 
     ? filteredItems.slice(0, -2).map(item => ({
-        ...item,
-        icon: undefined,
+        icon: ({ className }: { className?: string }) => (
+          <FeatherIcon name="chevron-right" className={className} />
+        ),
         label: item.label,
         onClick: () => {
           if (item.route) {
@@ -37,7 +39,8 @@ export function Breadcrumbs({ items = [] }: BreadcrumbsProps) {
           } else if (item.onClick) {
             item.onClick()
           }
-        }
+        },
+        condition: () => true
       }))
     : []
 

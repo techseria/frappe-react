@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormGenerator } from './FormGenerator';
 import { DoctypeDefinition, DoctypeDataField, DoctypeSelectField } from '../types/doctype';
 

@@ -17,7 +17,7 @@ interface ShowToastOptions extends ToastOptions {
 
 // Map types to icons and classes
 const typeIconMap: Record<NonNullable<ShowToastOptions['type']>, FeatherIconName> = {
-  success: 'check-circle', error: 'x-circle', info: 'info', warning: 'alert-triangle', loading: 'loader',
+  success: 'check', error: 'x', info: 'info', warning: 'help-circle', loading: 'clock',
 };
 const typeIconClasses: Record<NonNullable<ShowToastOptions['type']>, string> = {
   success: 'text-green-500', error: 'text-red-500', info: 'text-blue-500', warning: 'text-yellow-500', loading: 'animate-spin text-gray-700',

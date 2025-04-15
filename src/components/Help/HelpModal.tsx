@@ -25,12 +25,7 @@ const HelpModal: React.FC<HelpModalProps> = ({
   const [show, setShow] = useState(true);
   const [minimize, setMinimize] = useState(false);
   const [articles] = useState<any[]>([]);
-  // Using destructuring to avoid the "declared but never read" warning
-  const [isOnboardingStepsCompleted, _setIsOnboardingStepsCompleted] = useState(false);
-  // Create a wrapper function that uses the setter
-  const setIsOnboardingStepsCompleted = (value: boolean) => {
-    _setIsOnboardingStepsCompleted(value);
-  };
+  const [isOnboardingStepsCompleted] = useState(false);
   const [showHelpCenter, setShowHelpCenter] = useState(false);
 
   const headingTitle = (!isOnboardingStepsCompleted && !showHelpCenter)
@@ -110,7 +105,7 @@ const HelpModal: React.FC<HelpModalProps> = ({
         <div className="flex gap-1">
           {options.length > 0 && (
             <Dropdown options={options}>
-              <Button variant="ghost" prefix={<FeatherIcon name="more-horizontal" className="h-3.5" />} />
+              <Button variant="ghost" prefix={<FeatherIcon name="chevron-down" className="h-3.5" />} />
             </Dropdown>
           )}
           <Button variant="ghost" onClick={() => setMinimize(!minimize)}>

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { Popover } from './Popover'
 import { Button } from './Button/Button'
 import { FeatherIcon } from './FeatherIcon'
@@ -23,7 +23,6 @@ export function DatePicker(props: DatePickerProps) {
   const [currentYear, setCurrentYear] = useState(dayjs().year())
   const [dateValue, setDateValue] = useState(props.value || '')
 
-  const today = dayjs()
   const formattedMonth = dayjs()
     .year(currentYear)
     .month(currentMonth - 1)
@@ -78,7 +77,8 @@ export function DatePicker(props: DatePickerProps) {
           iconLeft="calendar"
           placeholder={props.placeholder}
           value={dateValue && props.formatter ? props.formatter(dateValue) : dateValue}
-          className={`w-full ${props.inputClass || ''}`}
+              className={`w-full ${props.inputClass || ''}`}
+              size={undefined}
         />
       )}
     >
@@ -111,7 +111,7 @@ export function DatePicker(props: DatePickerProps) {
               className="text-sm"
               type="text"
               value={dateValue}
-              onChange={(e) => selectDate(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => selectDate(e.target.value)}
             />
             <Button
               label="Today"

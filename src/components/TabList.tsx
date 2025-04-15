@@ -1,5 +1,5 @@
 import { TabList as HeadlessTabList, Tab } from '@headlessui/react'
-import { useRef, useEffect, useState, RefCallback } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { useTabs } from './Tabs'
 
 interface TabListProps {

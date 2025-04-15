@@ -10,7 +10,7 @@ import { useListView } from './ListView'
 
 interface ListHeaderItemProps {
   item: {
-    label: string
+    label?: string
     align?: 'left' | 'center' | 'right'
     width?: number | string
   }

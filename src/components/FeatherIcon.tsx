@@ -1,8 +1,26 @@
 import React from 'react';
 
+export type FeatherIconName = 
+  | 'calendar'
+  | 'check'
+  | 'chevron-down'
+  | 'chevron-left'
+  | 'chevron-right'
+  | 'clock'
+  | 'edit'
+  | 'help-circle'
+  | 'info'
+  | 'plus'
+  | 'search'
+  | 'settings'
+  | 'star'
+  | 'trash-2'
+  | 'x';
+
 export interface FeatherIconProps {
   className?: string;
-  name: string;
+  name: FeatherIconName;
+  strokeWidth?: number;
 }
 
 export const FeatherIcon: React.FC<FeatherIconProps> = ({ className, name }) => (

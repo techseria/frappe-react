@@ -1,4 +1,4 @@
-import { initFrappe } from 'frappe-react-sdk';
+import {} from 'frappe-react-sdk';
 
 const frappeConfig = {
   url: process.env.FRAPPE_URL || 'http://localhost:8000',
