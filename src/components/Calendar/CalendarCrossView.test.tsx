@@ -25,9 +25,10 @@ describe('Calendar Cross-View Drag', () => {
     const mockUpdate = jest.fn();
     render(
       <DndProvider backend={HTML5Backend}>
-        <Calendar 
+        <Calendar
           events={mockEvents}
-          view="month"
+          // view="month" // Removed invalid prop
+          config={{ defaultMode: 'Month' }} // Set initial view via config
           onUpdate={mockUpdate}
         />
       </DndProvider>
@@ -54,9 +55,10 @@ describe('Calendar Cross-View Drag', () => {
     const mockUpdate = jest.fn();
     render(
       <DndProvider backend={HTML5Backend}>
-        <Calendar 
+        <Calendar
           events={mockEvents}
-          view="day"
+          // view="day" // Removed invalid prop
+          config={{ defaultMode: 'Day' }} // Set initial view via config
           onUpdate={mockUpdate}
         />
       </DndProvider>
@@ -80,9 +82,10 @@ describe('Calendar Cross-View Drag', () => {
     const mockUpdate = jest.fn();
     render(
       <DndProvider backend={HTML5Backend}>
-        <Calendar 
+        <Calendar
           events={mockEvents}
-          view="day"
+          // view="day" // Removed invalid prop
+          config={{ defaultMode: 'Day' }} // Set initial view via config
           onUpdate={mockUpdate}
         />
       </DndProvider>
