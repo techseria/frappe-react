@@ -92,11 +92,15 @@ export function Autocomplete(props: AutocompleteProps) {
       value={props.value}
       onChange={(value: any) => {
         if (props.multiple) {
-          props.onChange?.(value as (OptionValue | Option)[] | null)
+          // Explicitly cast props to narrow down the type for onChange
+          const onChangeHandler = (props as MultipleAutocompleteProps).onChange;
+          onChangeHandler?.(value as (OptionValue | Option)[] | null);
         } else {
-          props.onChange?.(value as OptionValue | Option | null)
+          // Explicitly cast props to narrow down the type for onChange
+          const onChangeHandler = (props as SingleAutocompleteProps).onChange;
+          onChangeHandler?.(value as OptionValue | Option | null);
         }
-        if (!props.multiple) setShowOptions(false)
+        if (!props.multiple) setShowOptions(false);
       }}
       multiple={!!props.multiple}
       nullable

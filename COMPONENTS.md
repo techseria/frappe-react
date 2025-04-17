@@ -218,4 +218,28 @@
   />
   ```
 
+#### TextEditor Component Suite
+- **Description:** A collection of components related to the rich text editor functionality, migrated as placeholders from `frappe-ui`. Full implementation is pending.
+- **Components:**
+  - `CodeBlockComponent.tsx`: Placeholder for rendering code blocks.
+  - `EmojiList.tsx`: Placeholder for displaying an emoji selection list.
+  - `FontColor.tsx`: Placeholder for a font color selection tool.
+  - `InsertImage.tsx`: Placeholder for inserting images into the editor.
+  - `InsertLink.tsx`: Placeholder for inserting hyperlinks.
+  - `InsertVideo.tsx`: Placeholder for inserting videos.
+  - `MentionList.tsx`: Placeholder for displaying mention suggestions.
+  - `Menu.tsx`: Placeholder for a generic menu component, potentially used within the editor.
+  - `TextEditorBubbleMenu.tsx`: Placeholder for a contextual menu that appears on text selection.
+  - `TextEditorFixedMenu.tsx`: Placeholder for a fixed toolbar associated with the editor.
+  - `TextEditorFloatingMenu.tsx`: Placeholder for a floating toolbar.
+  - `TextEditorIcons.tsx`: Contains 28 placeholder icon components associated with text editor actions.
+- **Features:**
+  - Currently placeholders. Basic functionality needs to be implemented.
+- **Usage Example:**
+  ```tsx
+  // Example usage will be added once components are implemented.
+  // import { TextEditor } from './components/TextEditor'; // Assuming a main editor component
+  // <TextEditor /> 
+  ```
+
 [Rest of the file content remains the same...]
