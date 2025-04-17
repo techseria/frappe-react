@@ -1,245 +1,452 @@
-# Frappe-React Components Detailed Documentation
+# Frappe React UI Components - Detailed Documentation
 
-[Previous content remains the same until the Additional Components section...]
+This document provides detailed usage examples for components available in the `@techseria/frappe-react-ui` package.
 
-### Additional Components
+*(Note: This documentation is generated based on exported components. Props and examples are illustrative and may require referring to the source code for full details and accuracy.)*
 
-#### Button
+---
+
+## Core Components
+
+### Alert
+- **Description:** Displays contextual feedback messages.
+- **Usage Example:**
+  ```tsx
+  import { Alert } from '@techseria/frappe-react-ui';
+
+  <Alert title="Success" variant="success">
+    Your changes have been saved.
+  </Alert>
+  ```
+
+### Autocomplete
+- **Description:** A text input with typeahead suggestions (Legacy version).
+- **Usage Example:**
+  ```tsx
+  import { Autocomplete } from '@techseria/frappe-react-ui';
+  const options = [{ label: 'Apple', value: 'apple' }, { label: 'Banana', value: 'banana' }];
+  <Autocomplete options={options} onChange={(value) => console.log(value)} />
+  ```
+
+### AutocompleteV2
+- **Description:** An improved text input with typeahead suggestions, potentially using ListView.
+- **Usage Example:**
+  ```tsx
+  import { AutocompleteV2 } from '@techseria/frappe-react-ui';
+  const options = [{ label: 'Apple', value: 'apple' }, { label: 'Banana', value: 'banana' }];
+  <AutocompleteV2 options={options} onChange={(value) => console.log(value)} placeholder="Search fruit..." />
+  ```
+
+### Avatar
+- **Description:** Displays user profile pictures or initials.
+- **Usage Example:**
+  ```tsx
+  import { Avatar } from '@techseria/frappe-react-ui';
+
+  <Avatar src="/path/to/image.jpg" alt="User Name" />
+  <Avatar>UN</Avatar> // Fallback initials
+  ```
+
+### Badge
+- **Description:** Small status descriptors for UI elements.
+- **Usage Example:**
+  ```tsx
+  import { Badge } from '@techseria/frappe-react-ui';
+
+  <Badge variant="info">New</Badge>
+  ```
+
+### Breadcrumbs
+- **Description:** Shows the user's location in a navigational hierarchy.
+- **Usage Example:**
+  ```tsx
+  import { Breadcrumbs } from '@techseria/frappe-react-ui';
+  const items = [
+    { label: 'Home', href: '/' },
+    { label: 'Products', href: '/products' },
+    { label: 'Laptops' }
+  ];
+  <Breadcrumbs items={items} />
+  ```
+
+### Button
 - **Description:** A customizable button component.
-- **Features:**
-  - Variants for primary, secondary, outline, etc.
-  - Accessible and responsive design.
-- **Props:**
+- **Props:** (Illustrative)
   - `onClick: () => void`
-  - `variant?: "primary" | "secondary" | "outline"`
+  - `variant?: "primary" | "secondary" | "outline" | "ghost" | "danger"`
+  - `size?: "sm" | "md" | "lg"`
   - `children: React.ReactNode`
 - **Usage Example:**
   ```tsx
+  import { Button } from '@techseria/frappe-react-ui';
+
   <Button variant="primary" onClick={() => console.log("Clicked!")}>
     Click Me
   </Button>
   ```
 
-#### Calendar Component Suite
-- **Description:** A comprehensive suite for displaying and managing calendar events with multiple views and interactive features. Migrated from `frappe-ui`.
-- **Core Component:** `Calendar.tsx`
-  - Orchestrates different views (Monthly, Weekly, Daily).
-  - Manages event data fetching and state using `useCalendarData`.
-  - Handles view switching and navigation.
-- **View Components:**
-  - `CalendarMonthly.tsx`: Displays events in a traditional month grid. Supports showing more events per day via `ShowMoreCalendarEvent`.
-  - `CalendarWeekly.tsx`: Shows events across a week, typically with time slots. Uses `CalendarTimeMarker` for current time indication.
-  - `CalendarDaily.tsx`: Focuses on a single day's events with time slots. Also uses `CalendarTimeMarker`.
-- **Event Handling Components:**
-  - `CalendarEvent.tsx`: Renders individual events within the calendar views. Handles click events to open details or edit modals.
-  - `NewEventModal.tsx`: A modal dialog (built without relying on the base `Dialog` component due to prop inconsistencies) for creating and editing events. Includes form validation.
-  - `ShowMoreCalendarEvent.tsx`: A popover or modal to display events when they exceed the available space in a day cell (primarily in Monthly view).
-- **Hooks & Utilities:**
-  - `useCalendarData.ts`: Custom hook to manage fetching, creating, updating, and deleting calendar events. Handles state logic.
-  - `calendarUtils.ts`: Contains helper functions for date manipulation, event formatting, color mapping (`colorMap`), etc.
-- **Features:**
-  - Multiple views: Month, Week, Day.
-  - Event creation, editing, and display.
-  - Color-coded events.
-  - Full-day event support.
-  - Time indication marker.
-  - Responsive design considerations (though specific testing needed).
-- **Key Props (`Calendar.tsx`):**
-  - `events?: CalendarEvent[]` - Initial list of events.
-  - `config?: CalendarConfig` - Configuration options (e.g., default view).
-  - `calendarActions?: { createNewEvent: (event: any) => void; updateEventState: (event: any) => void; /* ... other actions */ }` - Functions passed down for event manipulation, often linked to `useCalendarData`.
-- **Usage Example (`Calendar.tsx`):**
+### Card
+- **Description:** A container for grouping related content.
+- **Usage Example:**
   ```tsx
-  import Calendar from './components/Calendar/Calendar';
-  import { useCalendarData } from './components/Calendar/useCalendarData';
+  import { Card } from '@techseria/frappe-react-ui';
 
-  function MyCalendarApp() {
-    const { events, calendarActions } = useCalendarData(/* initial fetch config */);
+  <Card title="User Details">
+    <p>Content goes here...</p>
+  </Card>
+  ```
 
+### Checkbox
+- **Description:** Allows users to select one or more options.
+- **Usage Example:**
+  ```tsx
+  import { Checkbox } from '@techseria/frappe-react-ui';
+
+  <Checkbox label="Accept Terms" onChange={(checked) => console.log(checked)} />
+  ```
+
+### CircularProgressBar
+- **Description:** Displays progress in a circular format.
+- **Usage Example:**
+  ```tsx
+  import { CircularProgressBar } from '@techseria/frappe-react-ui';
+
+  <CircularProgressBar value={75} />
+  ```
+
+### ConfirmDialog
+- **Description:** Prompts the user for confirmation before an action.
+- **Usage Example:** (Usage might involve a hook or function call)
+  ```tsx
+  import { confirmDialog } from '@techseria/frappe-react-ui'; // Assuming utility export
+
+  async function handleDelete() {
+    const confirmed = await confirmDialog({
+      title: 'Confirm Deletion',
+      message: 'Are you sure you want to delete this item?',
+      confirmLabel: 'Delete',
+      variant: 'danger'
+    });
+    if (confirmed) {
+      // Proceed with deletion
+    }
+  }
+  ```
+
+### DatePicker
+- **Description:** Allows users to select a date.
+- **Usage Example:**
+  ```tsx
+  import { DatePicker } from '@techseria/frappe-react-ui';
+
+  <DatePicker onChange={(date) => console.log(date)} />
+  ```
+
+### Dialog
+- **Description:** A modal window for displaying information or forms.
+- **Usage Example:**
+  ```tsx
+  import { Dialog, Button } from '@techseria/frappe-react-ui';
+  import { useState } from 'react';
+
+  function MyDialog() {
+    const [isOpen, setIsOpen] = useState(false);
     return (
-      <Calendar 
-        events={events} 
-        calendarActions={calendarActions}
-        // config={{ defaultView: 'week' }} 
-      />
+      <>
+        <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+        <Dialog isOpen={isOpen} onClose={() => setIsOpen(false)} title="My Dialog">
+          <p>Dialog content...</p>
+          <Button onClick={() => setIsOpen(false)}>Close</Button>
+        </Dialog>
+      </>
     );
   }
   ```
 
-#### CommandPalette
-- **Description:** A command palette for rapid action execution.
-- **Features:**
-  - Searchable list of commands.
-  - Keyboard navigation.
-- **Props:**
-  - `commands: Array<{ name: string; action: () => void }>`
+### Divider
+- **Description:** A visual separator between elements.
 - **Usage Example:**
   ```tsx
-  <CommandPalette 
-    commands={[
-      { name: 'Open Dashboard', action: () => console.log('Dashboard opened') }
-    ]}
-  />
+  import { Divider } from '@techseria/frappe-react-ui';
+
+  <div>Element 1</div>
+  <Divider />
+  <div>Element 2</div>
   ```
 
-#### ListView
-- **Description:** A versatile component for displaying list-based data with advanced configuration.
-- **Features:**
-  - **Custom Item Rendering:** Supply a custom function via the `renderItem` prop to dictate how each item appears.
-  - **Sorting & Filtering:** Built-in support to allow sorting (by any column or property) and filtering of list data.
-  - **Responsive Layout:** Multiple display modes such as "compact", "regular", or "dense" to suit various UI needs.
-  - **Pagination/Infinite Scroll:** Options to paginate data sets or enable infinite scrolling for large data volumes.
-  - **Style Customization:** Easily override default styles using CSS classes or theming solutions.
-- **Props:**
-  - `data: Array<any>` - Array of data items.
-  - `renderItem: (item: any) => React.ReactNode` - Custom renderer for list items.
-  - `onItemSelect?: (item: any) => void` - Callback when an item is selected.
-  - `sortable?: boolean` - Enables sorting functionality.
-  - `filterable?: boolean` - Enables filtering functionality.
-  - `viewMode?: "compact" | "regular" | "dense"` - Chooses the display style.
-  - `pagination?: { pageSize: number; currentPage: number; totalItems: number }` - Pagination configuration.
-  - `infiniteScroll?: boolean` - Enables infinite scroll.
+### Dropdown
+- **Description:** A button that reveals a list of actions or options.
 - **Usage Example:**
   ```tsx
-  <ListView 
-    data={[
-      { id: 1, name: 'Item 1' },
-      { id: 2, name: 'Item 2' }
-    ]}
-    renderItem={(item) => (
-      <div className="list-item">
-        {item.name}
-      </div>
-    )}
-    onItemSelect={(item) => console.log('Selected:', item)}
-    sortable={true}
-    filterable={true}
-    viewMode="regular"
-  />
+  import { Dropdown } from '@techseria/frappe-react-ui';
+  const items = [
+    { label: 'Edit', onClick: () => {} },
+    { label: 'Delete', onClick: () => {} }
+  ];
+  <Dropdown label="Actions" items={items} />
   ```
 
-#### SignupBanner
-- **Description:** Promotional banner encouraging users to sign up for the application.
-- **Features:**
-  - Collapsible/expandable design
-  - Customizable app name and redirect URL
-  - Callback after signup action
-  - Supports custom child content
-- **Props:**
-  - `isSidebarCollapsed?: boolean` - Controls collapsed state
-  - `appName?: string` - Name of application (default: "Frappe CRM")
-  - `redirectURL?: string` - URL for signup action
-  - `afterSignup?: () => void` - Callback after signup
-  - `children?: React.ReactNode` - Custom content
+### ErrorMessage
+- **Description:** Displays error messages, often used in forms.
 - **Usage Example:**
   ```tsx
-  <SignupBanner 
-    appName="My App"
-    redirectURL="https://example.com/signup"
-    afterSignup={() => trackSignup()}
-  />
+  import { ErrorMessage } from '@techseria/frappe-react-ui';
+
+  <ErrorMessage>This field is required.</ErrorMessage>
   ```
 
-#### TrialBanner
-- **Description:** Displays trial period information and upgrade options.
-- **Features:**
-  - Shows remaining trial days
-  - Auto-hides when trial is not active
-  - Collapsible/expandable design
-  - Upgrade action with callback
-- **Props:**
-  - `isSidebarCollapsed?: boolean` - Controls collapsed state
-  - `afterUpgrade?: () => void` - Callback after upgrade action
+### FeatherIcon
+- **Description:** Renders icons from the Feather Icons library.
 - **Usage Example:**
   ```tsx
-  <TrialBanner 
-    afterUpgrade={() => trackUpgrade()}
-  />
+  import { FeatherIcon } from '@techseria/frappe-react-ui';
+
+  <FeatherIcon icon="settings" />
   ```
 
-#### HelpModal
-- **Description:** Comprehensive help interface combining onboarding and help center.
-- **Features:**
-  - Toggle between onboarding and help center views
-  - Minimize/maximize functionality
-  - Customizable app branding
-  - Contextual navigation options
-- **Props:**
-  - `appName?: string` - Application name (default: "frappecrm")
-  - `title?: string` - Modal title (default: "Frappe CRM")
-  - `logo: React.ReactElement` - Application logo
-  - `docsLink?: string` - Documentation URL
+### FileUploader
+- **Description:** Allows users to upload files.
 - **Usage Example:**
   ```tsx
-  <HelpModal 
-    logo={<AppLogo />}
-    docsLink="https://docs.example.com"
-  />
+  import { FileUploader } from '@techseria/frappe-react-ui';
+
+  <FileUploader onUpload={(files) => console.log(files)} />
   ```
 
-#### HelpCenter
-- **Description:** Displays help articles and documentation links.
-- **Features:**
-  - Article list display
-  - Documentation link
-  - Empty state handling
-- **Props:**
-  - `articles: any[]` - Array of help articles
-  - `docsLink: string` - URL to documentation
-  - `onArticlesChange?: (articles: any[]) => void` - Callback when articles change
+### FormControl
+- **Description:** A wrapper for form elements providing labels, help text, and error states.
 - **Usage Example:**
   ```tsx
-  <HelpCenter 
-    articles={helpArticles}
-    docsLink="https://docs.example.com"
-  />
+  import { FormControl, TextInput } from '@techseria/frappe-react-ui';
+
+  <FormControl label="Email Address" helpText="We'll never share your email.">
+    <TextInput type="email" />
+  </FormControl>
   ```
 
-#### OnboardingSteps
-- **Description:** Guides new users through application setup.
-- **Features:**
-  - Customizable welcome message
-  - Application branding support
-  - Completion tracking
-- **Props:**
-  - `title: string` - Welcome title
-  - `logo: React.ReactElement` - Application logo
-  - `appName: string` - Application name
-  - `afterSkip?: () => void` - Callback when steps are skipped
-  - `afterSkipAll?: () => void` - Callback when all steps are skipped
-  - `afterReset?: () => void` - Callback when steps are reset
-  - `afterResetAll?: () => void` - Callback when all steps are reset
+### FormGenerator
+- **Description:** Generates a form based on a configuration object (likely Frappe DocType fields).
+- **Usage Example:** (Conceptual)
+  ```tsx
+  import { FormGenerator } from '@techseria/frappe-react-ui';
+  const fields = [ { fieldname: 'first_name', label: 'First Name', fieldtype: 'Data' } ];
+  <FormGenerator fields={fields} doc={{}} onChange={(doc) => console.log(doc)} />
+  ```
+
+### GreenCheckIcon
+- **Description:** A specific checkmark icon, often used for success states.
 - **Usage Example:**
   ```tsx
-  <OnboardingSteps 
-    title="Welcome to My App"
-    logo={<AppLogo />}
-    appName="My App"
-  />
+  import { GreenCheckIcon } from '@techseria/frappe-react-ui';
+
+  <GreenCheckIcon />
   ```
 
-#### TextEditor Component Suite
-- **Description:** A collection of components related to the rich text editor functionality, migrated as placeholders from `frappe-ui`. Full implementation is pending.
-- **Components:**
-  - `CodeBlockComponent.tsx`: Placeholder for rendering code blocks.
-  - `EmojiList.tsx`: Placeholder for displaying an emoji selection list.
-  - `FontColor.tsx`: Placeholder for a font color selection tool.
-  - `InsertImage.tsx`: Placeholder for inserting images into the editor.
-  - `InsertLink.tsx`: Placeholder for inserting hyperlinks.
-  - `InsertVideo.tsx`: Placeholder for inserting videos.
-  - `MentionList.tsx`: Placeholder for displaying mention suggestions.
-  - `Menu.tsx`: Placeholder for a generic menu component, potentially used within the editor.
-  - `TextEditorBubbleMenu.tsx`: Placeholder for a contextual menu that appears on text selection.
-  - `TextEditorFixedMenu.tsx`: Placeholder for a fixed toolbar associated with the editor.
-  - `TextEditorFloatingMenu.tsx`: Placeholder for a floating toolbar.
-  - `TextEditorIcons.tsx`: Contains 28 placeholder icon components associated with text editor actions.
-- **Features:**
-  - Currently placeholders. Basic functionality needs to be implemented.
+### Link
+- **Description:** A styled anchor tag for navigation.
 - **Usage Example:**
   ```tsx
-  // Example usage will be added once components are implemented.
-  // import { TextEditor } from './components/TextEditor'; // Assuming a main editor component
-  // <TextEditor /> 
+  import { Link } from '@techseria/frappe-react-ui';
+
+  <Link href="/dashboard">Go to Dashboard</Link>
   ```
 
-[Rest of the file content remains the same...]
+### ListItem
+- **Description:** Represents a single item within a list structure. Often used internally by components like `ListView` or `Select`.
+- **Usage Example:** (Likely used within other components)
+  ```tsx
+  import { ListItem } from '@techseria/frappe-react-ui';
+
+  <ListItem>Item Text</ListItem>
+  ```
+
+### ListView
+- **Description:** A versatile component for displaying list-based data with columns, selection, and grouping.
+- **Key Props:** (Illustrative)
+  - `columns: Array<{ key: string; label?: string; width?: number; ... }>` - Defines the columns.
+  - `rows: Array<any> | Array<{ group: string; rows: Array<any> }>` - Data rows or grouped data.
+  - `rowKey: string | number` - Unique key property within each row object.
+  - `options?: { selectable?: boolean; onRowClick?: (row) => void; ... }` - Configuration options.
+  - `renderCell?: (props: { column, row, item }) => React.ReactNode` - Custom cell renderer.
+- **Usage Example:**
+  ```tsx
+  import { ListView } from '@techseria/frappe-react-ui';
+
+  const data = [
+    { id: 1, name: 'Laptop', category: 'Electronics', stock: 15 },
+    { id: 2, name: 'Mouse', category: 'Electronics', stock: 120 },
+    { id: 3, name: 'Desk Chair', category: 'Furniture', stock: 30 },
+  ];
+
+  const columns = [
+    { key: 'name', label: 'Product Name' },
+    { key: 'category', label: 'Category' },
+    { key: 'stock', label: 'Stock Level', align: 'right' },
+  ];
+
+  <ListView columns={columns} rows={data} rowKey="id" options={{ selectable: true }} />
+  ```
+  *(Note: ListView also exports sub-components like `ListHeader`, `ListRow`, `ListEmptyState`, etc. for more granular control if needed.)*
+
+### LoadingIndicator
+- **Description:** Indicates that an operation is in progress (generic).
+- **Usage Example:**
+  ```tsx
+  import { LoadingIndicator } from '@techseria/frappe-react-ui';
+
+  <LoadingIndicator />
+  ```
+
+### LoadingText
+- **Description:** Displays text with a loading animation.
+- **Usage Example:**
+  ```tsx
+  import { LoadingText } from '@techseria/frappe-react-ui';
+
+  <LoadingText>Loading data...</LoadingText>
+  ```
+
+### Popover
+- **Description:** Displays content floating above other elements, triggered by user interaction.
+- **Usage Example:**
+  ```tsx
+  import { Popover, Button } from '@techseria/frappe-react-ui';
+
+  <Popover content={<div>Popover content here...</div>}>
+    <Button>Hover or Click Me</Button>
+  </Popover>
+  ```
+
+### Progress
+- **Description:** Displays progress in a linear bar format.
+- **Usage Example:**
+  ```tsx
+  import { Progress } from '@techseria/frappe-react-ui';
+
+  <Progress value={50} />
+  ```
+
+### Rating
+- **Description:** Allows users to provide a star-based rating.
+- **Usage Example:**
+  ```tsx
+  import { Rating } from '@techseria/frappe-react-ui';
+
+  <Rating defaultValue={3} onChange={(value) => console.log(value)} />
+  ```
+
+### Select
+- **Description:** A dropdown list for selecting a single option.
+- **Usage Example:**
+  ```tsx
+  import { Select } from '@techseria/frappe-react-ui';
+  const options = [{ label: 'Option 1', value: '1' }, { label: 'Option 2', value: '2' }];
+  <Select options={options} onChange={(value) => console.log(value)} />
+  ```
+
+### Spinner
+- **Description:** A visual indicator that an operation is in progress.
+- **Usage Example:**
+  ```tsx
+  import { Spinner } from '@techseria/frappe-react-ui';
+
+  <Spinner />
+  ```
+
+### Switch
+- **Description:** A toggle switch for boolean options.
+- **Usage Example:**
+  ```tsx
+  import { Switch } from '@techseria/frappe-react-ui';
+
+  <Switch label="Enable Notifications" onChange={(checked) => console.log(checked)} />
+  ```
+
+### Tabs / TabList / TabPanel / TabButtons
+- **Description:** Components for creating tabbed interfaces.
+- **Usage Example:**
+  ```tsx
+  import { Tabs, TabList, TabPanel, TabButtons } from '@techseria/frappe-react-ui';
+
+  <Tabs defaultValue="tab1">
+    <TabList>
+      <TabButtons value="tab1">Tab One</TabButtons>
+      <TabButtons value="tab2">Tab Two</TabButtons>
+    </TabList>
+    <TabPanel value="tab1">Content for Tab One</TabPanel>
+    <TabPanel value="tab2">Content for Tab Two</TabPanel>
+  </Tabs>
+  ```
+
+### Textarea
+- **Description:** A multi-line text input field.
+- **Usage Example:**
+  ```tsx
+  import { Textarea } from '@techseria/frappe-react-ui';
+
+  <Textarea placeholder="Enter description..." />
+  ```
+
+### TextEditor (and related components)
+- **Description:** A rich text editor component. Includes related UI elements like menus and toolbars.
+- **Components:** `TextEditor`, `TextEditorBubbleMenu`, `TextEditorFixedMenu`, `TextEditorFloatingMenu`, `CodeBlockComponent`, `EmojiList`, `FontColor`, `InsertImage`, `InsertLink`, `InsertVideo`, `MentionList`, `TextEditorIcon1` (and other icons).
+- **Usage Example:** (Main Editor)
+  ```tsx
+  import { TextEditor } from '@techseria/frappe-react-ui';
+  import { useState } from 'react';
+
+  function MyEditor() {
+    const [content, setContent] = useState('<p>Initial Content</p>');
+    return <TextEditor value={content} onChange={setContent} />;
+  }
+  ```
+  *(Note: Many related components like menus might be used internally by `TextEditor` or require specific integration.)*
+
+### TextInput
+- **Description:** A standard single-line text input field.
+- **Usage Example:**
+  ```tsx
+  import { TextInput } from '@techseria/frappe-react-ui';
+
+  <TextInput placeholder="Enter your name" />
+  ```
+
+### Toast
+- **Description:** Displays temporary, non-intrusive notifications.
+- **Usage Example:** (Usage likely involves a hook or function call)
+  ```tsx
+  import { useToast } from '@techseria/frappe-react-ui'; // Assuming hook export
+
+  function MyComponent() {
+    const toast = useToast();
+    return (
+      <Button onClick={() => toast.show({ message: 'Item saved!', variant: 'success' })}>
+        Save Item
+      </Button>
+    );
+  }
+  ```
+
+### Tooltip
+- **Description:** Displays informative text when hovering over an element.
+- **Usage Example:**
+  ```tsx
+  import { Tooltip, Button } from '@techseria/frappe-react-ui';
+
+  <Tooltip content="Click to save changes">
+    <Button>Save</Button>
+  </Tooltip>
+  ```
+
+### Tree
+- **Description:** Displays hierarchical data in a tree structure.
+- **Usage Example:**
+  ```tsx
+  import { Tree } from '@techseria/frappe-react-ui';
+  const treeData = [ { id: '1', label: 'Root', children: [ { id: '1.1', label: 'Child 1' } ] } ];
+  <Tree data={treeData} />
+  ```
+
+---
+
+*This document should be updated as components evolve or new ones are added.*
