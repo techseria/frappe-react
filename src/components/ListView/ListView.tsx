@@ -109,7 +109,7 @@ interface ListViewContextType<T = ListViewRowData> {
 // Use generic type for context
 const ListViewContext = createContext<ListViewContextType<any> | null>(null);
 
-export function ListView<T extends ListViewRowData = ListViewRowData>({
+export default function ListView<T extends ListViewRowData = ListViewRowData>({
   columns,
   rows: data, // Rename prop to avoid confusion with internal flat `rows` state/context
   rowKey,
