@@ -1,47 +1,103 @@
-import { DroppableCalendarCell } from './DroppableCalendarCell';
-import { DraggableEvent } from './DraggableEvent';
-import { parseDate, getWeekDates } from './calendarUtils';
-import type { EventType } from './types';
+import React from 'react'
+import { CalendarEvent } from './CalendarEvent'
+import { daysList, hoursList } from './calendarUtils'
+import { useCalendarData } from './useCalendarData.ts' // Added .ts extension
 
 interface CalendarWeeklyProps {
-  events: EventType[];
-  currentDate: Date;
-  onEventDrop: (event: EventType, date: Date) => void;
+  events: Array<{
+    id: string
+    title: string
+    date: string
+    from_time?: string
+    to_time?: string
+    isFullDay?: boolean
+    color?: string
+    type?: string
+  }>
+  currentWeekDates: Date[]
+  config?: {
+    noBorder?: boolean
+    isEditMode?: boolean
+  }
+  onSetCurrentDate?: (date: Date) => void
 }
 
 const CalendarWeekly: React.FC<CalendarWeeklyProps> = ({
   events,
-  currentDate,
-  onEventDrop,
-}: CalendarWeeklyProps) => {
-  const weekDates = getWeekDates(currentDate);
+  currentWeekDates,
+  // config = {}, // Removed unused prop
+  // onSetCurrentDate // Removed unused prop
+}) => {
+  const { timedEvents } = useCalendarData(events) // Removed second argument
+  // const maxEventsInCell = 3 // Removed unused variable
 
   return (
-    <div className="grid grid-cols-7 gap-1">
-      {weekDates.map((date: Date, i: number) => (
-        <DroppableCalendarCell
-          key={i}
-          date={date}
-          onDrop={(event) => onEventDrop(event, date)}
-        >
-          <div className="h-32 p-1 border border-gray-200">
-            <div className="text-xs text-gray-500">
-              {date.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' })}
+    <div className="flex flex-1 flex-col overflow-scroll">
+      {/* Day headers */}
+      <div className="grid w-full grid-cols-8 border-b-[0.5px]">
+        <div className="border-r-[0.5px]"></div>
+        {daysList.map((day, i) => (
+          <div 
+            key={day} 
+            className="border-r-[0.5px] py-2 text-center text-base text-ink-gray-5"
+          >
+            {day}
+            <div className="text-xs">
+              {currentWeekDates[i]?.getDate()}
             </div>
-            {events
-              .filter(e => parseDate(e.date) === parseDate(date))
-              .map(event => (
-                <DraggableEvent key={event.id} event={event}>
-                  <div className="text-xs p-1 mb-1 rounded bg-blue-100">
-                    {event.title}
-                  </div>
-                </DraggableEvent>
-              ))}
           </div>
-        </DroppableCalendarCell>
-      ))}
-    </div>
-  );
-};
+        ))}
+      </div>
 
-export default CalendarWeekly;
+      {/* Time grid */}
+      <div className="flex flex-1 overflow-y-auto">
+        {/* Time column */}
+        <div className="w-16 flex-none">
+          {hoursList.map(hour => (
+            <div 
+              key={hour} 
+              className="h-16 border-b-[0.5px] border-r-[0.5px] text-right pr-2 text-xs text-ink-gray-5"
+            >
+              {hour}
+            </div>
+          ))}
+        </div>
+
+        {/* Day columns */}
+        <div className="grid flex-1 grid-cols-7">
+          {currentWeekDates.map(date => (
+            <div key={date.toString()} className="relative border-r-[0.5px]">
+              {hoursList.map(hour => (
+                <div 
+                  key={hour}
+                  className="h-16 border-b-[0.5px]"
+                ></div>
+              ))}
+
+              {/* Events */}
+              {timedEvents.value[date.toISOString().split('T')[0]]?.map((event: {
+                id: string
+                title: string
+                date: string
+                from_time?: string
+                to_time?: string
+                isFullDay?: boolean
+                color?: string
+                type?: string
+              }) => (
+                <div key={event.id} className="absolute left-0 right-0 mx-1">
+                  <CalendarEvent
+                    event={event}
+                    date={date}
+                  />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default CalendarWeekly

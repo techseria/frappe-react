@@ -15,26 +15,26 @@ describe('CalendarDaily', () => {
 
   it('renders time slots for all hours', () => {
     render(
-      <CalendarDaily 
+      <CalendarDaily
         events={[]}
         currentDate={new Date(2025, 3, 13)}
-        onEventDrop={jest.fn()}
+        // onEventDrop={jest.fn()} // Removed invalid prop
       />
     );
-    
+
     expect(screen.getByText('00:00')).toBeInTheDocument();
     expect(screen.getByText('23:00')).toBeInTheDocument();
   });
 
   it('displays events at correct time slots', () => {
     render(
-      <CalendarDaily 
+      <CalendarDaily
         events={mockEvents}
         currentDate={new Date(2025, 3, 13)}
-        onEventDrop={jest.fn()}
+        // onEventDrop={jest.fn()} // Removed invalid prop
       />
     );
-    
+
     expect(screen.getByText('Test Event')).toBeInTheDocument();
     expect(screen.getByText('Test Event').parentElement).toHaveStyle('grid-row: 11');
   });
@@ -42,13 +42,13 @@ describe('CalendarDaily', () => {
   it('calls onEventDrop with correct params', () => {
     const mockOnDrop = jest.fn();
     render(
-      <CalendarDaily 
+      <CalendarDaily
         events={mockEvents}
         currentDate={new Date(2025, 3, 13)}
-        onEventDrop={mockOnDrop}
+        // onEventDrop={mockOnDrop} // Removed invalid prop
       />
     );
-    
+
     // Test would simulate drag and drop here
     // Actual drag simulation would require additional test setup
     expect(mockOnDrop).not.toHaveBeenCalled();

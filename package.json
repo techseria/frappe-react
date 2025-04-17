@@ -1,97 +1,31 @@
 {
-  "name": "frappe-react",
-  "version": "0.1.0",
-  "private": false,
-  "description": "React components for Frappe Framework UI",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "name": "frappe-react-ui",
+  "version": "1.0.0",
+  "description": "A React UI package for Frappe",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
+  "scripts": {
+    "build": "vite build --config vite.lib.config.ts",
+    "test": "vitest",
+    "prepublishOnly": "npm run build"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/techseria/frappe-react.git"
+    "url": "https://github.com/techseria/frappe-react-ui.git"
   },
   "keywords": [
     "frappe",
     "react",
-    "components",
-    "ui"
+    "ui",
+    "components"
   ],
   "author": "Techseria",
-  "license": "AGPL 3.0",
-  "bugs": {
-    "url": "https://github.com/techseria/frappe-react/issues"
-  },
-  "homepage": "https://github.com/techseria/frappe-react#readme",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "build:lib": "vite build --config vite.lib.config.ts",
-    "prepublishOnly": "npm run build:lib",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "test": "vitest"
-  },
-  "dependencies": {
-    "@floating-ui/react": "^0.27.7",
-    "@headlessui/react": "^2.2.1",
-    "@reduxjs/toolkit": "^2.6.1",
-    "@tiptap/extension-code-block-lowlight": "^2.11.7",
-    "@tiptap/extension-color": "^2.11.7",
-    "@tiptap/extension-highlight": "^2.11.7",
-    "@tiptap/extension-link": "^2.11.7",
-    "@tiptap/extension-placeholder": "^2.11.7",
-    "@tiptap/extension-table": "^2.11.7",
-    "@tiptap/extension-table-cell": "^2.11.7",
-    "@tiptap/extension-table-header": "^2.11.7",
-    "@tiptap/extension-table-row": "^2.11.7",
-    "@tiptap/extension-text-align": "^2.11.7",
-    "@tiptap/extension-text-style": "^2.11.7",
-    "@tiptap/extension-typography": "^2.11.7",
-    "@tiptap/react": "^2.11.7",
-    "@tiptap/starter-kit": "^2.11.7",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/react-window": "^1.8.8",
-    "dayjs": "^1.11.13",
-    "feather-icons": "^4.29.2",
-    "frappe-react-sdk": "^1.11.0",
-    "i18next": "^24.2.3",
-    "lowlight": "^3.3.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-dnd": "^16.0.1",
-    "react-dnd-html5-backend": "^16.0.1",
-    "react-hot-toast": "^2.5.2",
-    "react-i18next": "^15.4.1",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^7.5.0",
-    "react-window": "^1.8.11",
-    "redux": "^5.0.1"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.21.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/feather-icons": "^4.29.4",
-    "@types/jest": "^29.5.14",
-    "@types/node": "^22.14.0",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "@types/testing-library__user-event": "^4.1.1",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.21.0",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^15.15.0",
-    "jsdom": "^26.1.0",
-    "typescript": "~5.7.2",
-    "typescript-eslint": "^8.24.1",
-    "vite": "^6.2.0",
-    "vite-plugin-dts": "^4.5.3",
-    "vitest": "^3.1.1"
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   }
 }

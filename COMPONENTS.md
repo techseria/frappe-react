@@ -20,20 +20,50 @@
   </Button>
   ```
 
-#### Calendar
-- **Description:** Calendar component for date display and event management.
+#### Calendar Component Suite
+- **Description:** A comprehensive suite for displaying and managing calendar events with multiple views and interactive features. Migrated from `frappe-ui`.
+- **Core Component:** `Calendar.tsx`
+  - Orchestrates different views (Monthly, Weekly, Daily).
+  - Manages event data fetching and state using `useCalendarData`.
+  - Handles view switching and navigation.
+- **View Components:**
+  - `CalendarMonthly.tsx`: Displays events in a traditional month grid. Supports showing more events per day via `ShowMoreCalendarEvent`.
+  - `CalendarWeekly.tsx`: Shows events across a week, typically with time slots. Uses `CalendarTimeMarker` for current time indication.
+  - `CalendarDaily.tsx`: Focuses on a single day's events with time slots. Also uses `CalendarTimeMarker`.
+- **Event Handling Components:**
+  - `CalendarEvent.tsx`: Renders individual events within the calendar views. Handles click events to open details or edit modals.
+  - `NewEventModal.tsx`: A modal dialog (built without relying on the base `Dialog` component due to prop inconsistencies) for creating and editing events. Includes form validation.
+  - `ShowMoreCalendarEvent.tsx`: A popover or modal to display events when they exceed the available space in a day cell (primarily in Monthly view).
+- **Hooks & Utilities:**
+  - `useCalendarData.ts`: Custom hook to manage fetching, creating, updating, and deleting calendar events. Handles state logic.
+  - `calendarUtils.ts`: Contains helper functions for date manipulation, event formatting, color mapping (`colorMap`), etc.
 - **Features:**
-  - Multiple views (month, week, day).
-  - Event integration and custom styling.
-- **Props:**
-  - `events?: Array<{ date: Date; title: string }>`
-  - `onDateSelect?: (date: Date) => void`
-- **Usage Example:**
+  - Multiple views: Month, Week, Day.
+  - Event creation, editing, and display.
+  - Color-coded events.
+  - Full-day event support.
+  - Time indication marker.
+  - Responsive design considerations (though specific testing needed).
+- **Key Props (`Calendar.tsx`):**
+  - `events?: CalendarEvent[]` - Initial list of events.
+  - `config?: CalendarConfig` - Configuration options (e.g., default view).
+  - `calendarActions?: { createNewEvent: (event: any) => void; updateEventState: (event: any) => void; /* ... other actions */ }` - Functions passed down for event manipulation, often linked to `useCalendarData`.
+- **Usage Example (`Calendar.tsx`):**
   ```tsx
-  <Calendar 
-    events={[{ date: new Date(), title: 'Meeting' }]} 
-    onDateSelect={(date) => console.log(date)}
-  />
+  import Calendar from './components/Calendar/Calendar';
+  import { useCalendarData } from './components/Calendar/useCalendarData';
+
+  function MyCalendarApp() {
+    const { events, calendarActions } = useCalendarData(/* initial fetch config */);
+
+    return (
+      <Calendar 
+        events={events} 
+        calendarActions={calendarActions}
+        // config={{ defaultView: 'week' }} 
+      />
+    );
+  }
   ```
 
 #### CommandPalette
@@ -186,6 +216,30 @@
     logo={<AppLogo />}
     appName="My App"
   />
+  ```
+
+#### TextEditor Component Suite
+- **Description:** A collection of components related to the rich text editor functionality, migrated as placeholders from `frappe-ui`. Full implementation is pending.
+- **Components:**
+  - `CodeBlockComponent.tsx`: Placeholder for rendering code blocks.
+  - `EmojiList.tsx`: Placeholder for displaying an emoji selection list.
+  - `FontColor.tsx`: Placeholder for a font color selection tool.
+  - `InsertImage.tsx`: Placeholder for inserting images into the editor.
+  - `InsertLink.tsx`: Placeholder for inserting hyperlinks.
+  - `InsertVideo.tsx`: Placeholder for inserting videos.
+  - `MentionList.tsx`: Placeholder for displaying mention suggestions.
+  - `Menu.tsx`: Placeholder for a generic menu component, potentially used within the editor.
+  - `TextEditorBubbleMenu.tsx`: Placeholder for a contextual menu that appears on text selection.
+  - `TextEditorFixedMenu.tsx`: Placeholder for a fixed toolbar associated with the editor.
+  - `TextEditorFloatingMenu.tsx`: Placeholder for a floating toolbar.
+  - `TextEditorIcons.tsx`: Contains 28 placeholder icon components associated with text editor actions.
+- **Features:**
+  - Currently placeholders. Basic functionality needs to be implemented.
+- **Usage Example:**
+  ```tsx
+  // Example usage will be added once components are implemented.
+  // import { TextEditor } from './components/TextEditor'; // Assuming a main editor component
+  // <TextEditor /> 
   ```
 
 [Rest of the file content remains the same...]
