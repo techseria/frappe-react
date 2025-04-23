@@ -1,10 +1,10 @@
 import { Dialog as HeadlessDialog, Transition } from '@headlessui/react'
 import { Fragment, ReactNode, useEffect, useState } from 'react'
 import { Button, ButtonProps } from './Button/Button'
-import { FeatherIcon, FeatherIconName } from './FeatherIcon';
+import FeatherIcon from './FeatherIcon';
 
 type DialogIcon = {
-  name: FeatherIconName
+  name: string
   appearance?: 'warning' | 'info' | 'danger' | 'success'
 }
 
@@ -68,7 +68,7 @@ export function Dialog({
   }
 
   const icon = typeof options.icon === 'string'
-    ? { name: options.icon as FeatherIconName }
+    ? { name: options.icon as string }
     : options.icon as DialogIcon
 
   const dialogPositionClasses = {

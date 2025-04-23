@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../Button/index'; // Adjust the import path if necessary
 import LightningIcon from '../LightningIcon';
-import { FeatherIcon } from '../FeatherIcon';
+import FeatherIcon from '../FeatherIcon'
 
 // Fallback translation function; replace with actual i18n if available.
 const __ = (str: string): string => str;

@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { Popover } from './Popover'
 import { Button } from './Button/Button'
-import { FeatherIcon } from './FeatherIcon'
+import FeatherIconfrom './FeatherIcon'
 import { TextInput } from './TextInput'
 import dayjs from 'dayjs'
 

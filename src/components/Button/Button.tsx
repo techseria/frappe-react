@@ -1,7 +1,7 @@
 import { ReactNode, ComponentType, createElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LoadingIndicator } from '../LoadingIndicator' // Removed LoadingIndicatorProps
-import { FeatherIcon, FeatherIconName } from '../FeatherIcon'
+import FeatherIcon from '../FeatherIcon'
 
 function IconComponent({ icon, className }: { 
   icon: ComponentType<{className?: string}>,
@@ -19,9 +19,9 @@ export interface ButtonProps { // Added export keyword
   size?: Size
   variant?: Variant
   label?: string
-  icon?: FeatherIconName | ComponentType
-  iconLeft?: FeatherIconName | ComponentType
-  iconRight?: FeatherIconName | ComponentType
+  icon?: string | ComponentType
+  iconLeft?: string | ComponentType
+  iconRight?: string | ComponentType
   loading?: boolean
   loadingText?: string
   disabled?: boolean
@@ -48,8 +48,7 @@ export function Button({
   children,
   className = '',
   ...props
-}: ButtonProps) {
-  const navigate = useNavigate()
+}: ButtonProps) {  
 
   const isDisabled = disabled || loading
   const isIconButton = icon || (children as any)?.type?.name === 'FeatherIcon'
@@ -57,6 +56,7 @@ export function Button({
   // Define handleClick to accept the event
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (route) {
+      const navigate = useNavigate()
       navigate(route)
     } else if (link) {
       window.open(link, '_blank')

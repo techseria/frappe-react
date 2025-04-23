@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { ListRow } from './ListRow';
-// Assuming ListContext is defined elsewhere (e.g., ListView.tsx) and imported
-// import { ListContext, Column } from './ListView'; // Placeholder
+import { ListViewContext } from './ListView'; // Adjust path as needed
 
 // TODO: Define ListContextValue and Column types properly, likely in ListView.tsx or a types file
 interface Column<T = any> {
@@ -28,12 +27,9 @@ interface ListContextValue<T = any> {
   renderCell?: React.ComponentType<{ column: Column<T>; row: T; item: any; align?: string }>;
 }
 
-// Placeholder context - replace with actual import
-const ListContext = React.createContext<ListContextValue | null>(null);
-
 // No specific props needed for ListRows itself, it relies on context
 export function ListRows<T extends { [key: string]: any }>() {
-  const list = useContext(ListContext);
+  const list = useContext(ListViewContext);
 
   if (!list) {
     console.error('ListRows must be used within a ListProvider');

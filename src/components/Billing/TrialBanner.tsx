@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../Button/index';
 import LightningIcon from '../LightningIcon';
-import { FeatherIcon } from '../FeatherIcon';
+import FeatherIcon from '../FeatherIcon';
 
 interface TrialBannerProps {
   isSidebarCollapsed?: boolean;

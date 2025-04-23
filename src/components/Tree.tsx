@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { FeatherIcon } from './FeatherIcon'
+import FeatherIcon from './FeatherIcon'
 import { TreeNode, TreeOptions } from '../types/Tree'
 
 interface TreeProps {

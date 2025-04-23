@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'; // Assuming react-router-dom for routin
 import { Checkbox } from '../Checkbox'; // Assuming Checkbox exists
 import { ListRowItem } from './ListRowItem'; // Use the actual component
 import { alignmentMap, getGridTemplateColumns } from './utils';
-// import { ListContext } from './ListView'; // Assuming context is defined in ListView.tsx
+import { ListViewContext } from './ListView'; // Assuming context is defined in ListView.tsx
 
 // TODO: Define ListContextValue and Column types properly, likely in ListView.tsx or a types file
 interface Column {
@@ -28,64 +28,78 @@ interface ListContextValue<T = any> {
   renderCell?: React.ComponentType<{ column: Column; row: T; item: any; align?: string }>; // Using render prop instead of slots
 }
 
-// Placeholder context - replace with actual import
-const ListContext = React.createContext<ListContextValue | null>(null);
-
 interface ListRowProps<T> {
   row: T;
   rowIndex: number; // Added for key and isLastRow calculation
 }
 
 export function ListRow<T extends { [key: string]: any }>({ row, rowIndex }: ListRowProps<T>) {
-  const list = useContext(ListContext);
+  const list = useContext(ListViewContext);
 
-  if (!list) {
-    // Handle case where context is not available, maybe throw an error or return null
-    console.error('ListRow must be used within a ListProvider');
-    return null;
-  }
-
-  const { columns, rows, rowKey, options, selections, toggleRow, renderCell } = list;
+ 
+  // Hooks must be called unconditionally before the early return.
+  const { columns, rows, rowKey, options, selections, toggleRow, renderCell } = list || {}; // Destructure safely
 
   const isLastRow = useMemo(() => {
     if (!rows?.length) return false;
     return rowIndex === rows.length - 1;
   }, [rows, rowIndex]);
 
-  const rowKeyValue = row[rowKey];
+  // Ensure rowKey exists before accessing row[rowKey]
+  const rowKeyValue = rowKey ? row[rowKey] : undefined;
 
   const isSelected = useMemo(() => {
-    return selections.has(rowKeyValue);
+    // Ensure selections and rowKeyValue are defined
+    return !!selections && rowKeyValue !== undefined && selections.has(rowKeyValue);
   }, [selections, rowKeyValue]);
 
   const isHoverable = useMemo(() => {
-    return !!options.getRowRoute || !!options.onRowClick;
-  }, [options.getRowRoute, options.onRowClick]);
+    // Ensure options exists
+    return !!options && (!!options.getRowRoute || !!options.onRowClick);
+  }, [options]); // Dependency array simplified
 
   const rowHeightStyle = useMemo(() => {
+    // Ensure options exists
+    if (!options) return 'auto';
     if (typeof options.rowHeight === 'number') {
       return `${options.rowHeight}px`;
     }
     return options.rowHeight || 'auto'; // Default height if not specified
-  }, [options.rowHeight]);
+  }, [options]); // Dependency array simplified
 
   const gridTemplateColumns = useMemo(() => {
+    // Ensure columns and options exist
+    if (!columns || !options) return '';
     return getGridTemplateColumns(columns, options.selectable);
-  }, [columns, options.selectable]);
+  }, [columns, options]); // Dependency array simplified
+
+
+  // Now perform the check after hooks are called
+  if (!list) {
+    // Handle case where context is not available, maybe throw an error or return null
+    console.error('ListRow must be used within a ListProvider');
+    return null;
+  }
+
+  // rowKeyValue should be defined if list is available, but add a check for safety
+  if (rowKeyValue === undefined) {
+     console.error('ListRow: rowKey is missing or invalid.');
+     return null;
+  }
 
   const handleRowClick = (e: React.MouseEvent) => {
     // Prevent checkbox click from triggering row click if they overlap
     if ((e.target as HTMLElement).closest('input[type="checkbox"]')) {
       return;
     }
-    if (options.onRowClick && !options.getRowRoute) {
+    if (options?.onRowClick && !options?.getRowRoute) {
       options.onRowClick(row);
     }
   };
 
   const handleCheckboxClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent row click when clicking checkbox
-    toggleRow(rowKeyValue);
+    // toggleRow is handled by onChange, no need to call it here again
   };
 
   const rowContent = (
@@ -104,16 +118,16 @@ export function ListRow<T extends { [key: string]: any }>({ row, rowIndex }: Lis
         gridTemplateColumns: gridTemplateColumns,
       }}
     >
-      {options.selectable && (
+      {options?.selectable && (
         <Checkbox
           checked={isSelected}
-          onChange={() => toggleRow(rowKeyValue)} // Use onChange for controlled component
+          onChange={() => toggleRow?.(rowKeyValue)} // Use onChange for controlled component
           onClick={handleCheckboxClick} // Keep stopPropagation logic
           className="cursor-pointer"
           aria-label={`Select row ${rowIndex + 1}`} // Accessibility improvement
         />
       )}
-      {columns.map((column, i) => (
+      {columns?.map((column, i) => (
         <div
           key={column.key}
           className={`${alignmentMap[column.align || 'left']} ${ // Default to left align
@@ -124,7 +138,7 @@ export function ListRow<T extends { [key: string]: any }>({ row, rowIndex }: Lis
             React.createElement(renderCell, {
               column,
               row,
-              item: row[column.key],
+              item: row[column.key] as unknown, // Use unknown instead of any
               align: column.align,
             })
           ) : (
@@ -142,13 +156,13 @@ export function ListRow<T extends { [key: string]: any }>({ row, rowIndex }: Lis
 
   const rowWrapperProps = {
     className: `flex flex-col ${isHoverable ? 'cursor-pointer' : ''}`,
-    onClick: !options.getRowRoute ? handleRowClick : undefined,
+    onClick: !(options?.getRowRoute) ? handleRowClick : undefined,
   };
 
   return (
     <div {...rowWrapperProps}>
-      {options.getRowRoute ? (
-        <Link to={options.getRowRoute(row)} className="block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+      {options?.getRowRoute ? (
+        <Link to={options?.getRowRoute(row)} className="block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
           {rowContent}
         </Link>
       ) : (

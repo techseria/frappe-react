@@ -9,8 +9,7 @@ import {
   autoUpdate,
 } from '@floating-ui/react';
 import { alignmentMap } from './utils';
-// Assuming ListContext is defined elsewhere (e.g., ListView.tsx) and imported
-// import { ListContext, Column } from './ListView'; // Placeholder
+import { ListViewContext } from './ListView';
 
 // TODO: Define ListContextValue and Column types properly, likely in ListView.tsx or a types file
 interface Column<T = any> {
@@ -37,10 +36,6 @@ interface ListContextValue<T = any> {
   renderCell?: React.ComponentType<{ column: Column<T>; row: T; item: any; align?: string }>;
 }
 
-// Placeholder context - replace with actual import
-const ListContext = React.createContext<ListContextValue | null>(null);
-
-
 interface ListRowItemProps<T> {
   column: Column<T>;
   row: T;
@@ -62,7 +57,7 @@ export function ListRowItem<T extends { [key: string]: any }>({
   item,
   align = 'left', // Default alignment
 }: ListRowItemProps<T>) {
-  const list = useContext(ListContext);
+  const list = useContext(ListViewContext);
 
   if (!list) {
     console.error('ListRowItem must be used within a ListProvider');

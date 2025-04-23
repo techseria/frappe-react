@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { ListRow } from './ListRow';
 import { ListGroup } from './ListGroupHeader'; // Import the group type definition
-// Assuming ListContext is defined elsewhere (e.g., ListView.tsx) and imported
-// import { ListContext } from './ListView'; // Placeholder
+import { ListViewContext } from './ListView'; // Assuming context is defined in ListView.tsx
 
 // TODO: Define ListContextValue properly, likely in ListView.tsx or a types file
 interface ListContextValue<T = any> {
@@ -11,16 +10,13 @@ interface ListContextValue<T = any> {
   // ... rest of context
 }
 
-// Placeholder context - replace with actual import
-const ListContext = React.createContext<ListContextValue | null>(null);
-
 interface ListGroupRowsProps<T> {
   group: ListGroup<T>;
   children?: React.ReactNode; // Allow overriding default content
 }
 
 export function ListGroupRows<T extends { [key: string]: any }>({ group, children }: ListGroupRowsProps<T>) {
-  const list = useContext(ListContext);
+  const list = useContext(ListViewContext);
 
   if (!list) {
     console.error('ListGroupRows must be used within a ListProvider');

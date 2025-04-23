@@ -5,7 +5,7 @@ import { FormControl } from '../FormControl';
 import { FilterIcon } from './FilterIcon';
 import { NestedPopover } from './NestedPopover';
 import { SearchComplete } from './SearchComplete';
-import { FeatherIcon } from '../FeatherIcon';
+import FeatherIcon from '../FeatherIcon';
 
 // Removed unused Option interface
 

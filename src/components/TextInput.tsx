@@ -1,5 +1,5 @@
 import { ComponentProps, forwardRef } from 'react'
-import { FeatherIcon, FeatherIconName } from './FeatherIcon'
+import FeatherIcon from './FeatherIcon'
 
 /**
  * TextInput component - A styled text input with optional label and icon
@@ -8,7 +8,7 @@ type TextInputProps = Omit<ComponentProps<'input'>, 'onChange'> & {
   /** Input label */
   label?: string
   /** Left icon name (from Feather Icons) */
-  iconLeft?: FeatherIconName
+  iconLeft?: string
   /** Additional class names */
   className?: string
   /** Error state */

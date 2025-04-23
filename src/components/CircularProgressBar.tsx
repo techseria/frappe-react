@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './CircularProgressBar.css';
-import { FeatherIcon } from './FeatherIcon';
+import FeatherIcon from './FeatherIcon';
 
 type Variant = 'solid' | 'outline';
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

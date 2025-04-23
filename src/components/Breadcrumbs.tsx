@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Dropdown } from './Dropdown'
 import { Button } from './Button/Button'
-import { FeatherIcon } from './FeatherIcon'
+import FeatherIcon from './FeatherIcon'
 
 interface BreadcrumbItem {
   label: string

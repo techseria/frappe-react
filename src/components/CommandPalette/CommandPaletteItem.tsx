@@ -1,11 +1,11 @@
 import clsx from 'clsx';
-import { FeatherIcon, FeatherIconName } from '../FeatherIcon'; // Adjust path if needed
+import FeatherIcon from '../FeatherIcon'; // Adjust path if needed
 
 // Define the structure of the item object
 export interface CommandPaletteItemType {
   name: string; // Assuming 'name' is used as key like in Vue version
   title: string;
-  icon?: FeatherIconName; // Use FeatherIconName type
+  icon?: string; // Use string type
   description?: string;
   disabled?: boolean;
   // Add any other relevant properties from the item object

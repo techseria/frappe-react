@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Dropdown } from '../Dropdown';
 import Button from '../Button/index';
-import { FeatherIcon } from '../FeatherIcon';
+import FeatherIcon from '../FeatherIcon';
 import MinimizeIcon from '../Icons/MinimizeIcon';
 import MaximizeIcon from '../Icons/MaximizeIcon';
 import HelpIcon from '../Icons/HelpIcon';

@@ -4,7 +4,7 @@ import {
   Combobox as HeadlessCombobox,
   Transition,
 } from '@headlessui/react';
-import { FeatherIcon } from '../FeatherIcon'; // Adjust path if needed
+import FeatherIcon from '../FeatherIcon'; // Adjust path if needed
 import { CommandPaletteItem, CommandPaletteItemType } from './CommandPaletteItem';
 // Define the structure for command groups
 export interface CommandGroup {

@@ -107,7 +107,7 @@ interface ListViewContextType<T = ListViewRowData> {
 }
 
 // Use generic type for context
-const ListViewContext = createContext<ListViewContextType<any> | null>(null);
+export const ListViewContext = createContext<ListViewContextType<any> | null>(null);
 
 export default function ListView<T extends ListViewRowData = ListViewRowData>({
   columns,

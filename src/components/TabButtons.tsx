@@ -1,10 +1,10 @@
 import { RadioGroup } from '@headlessui/react';
-import { FeatherIcon, FeatherIconName } from './FeatherIcon'; // Assuming FeatherIcon exists
+import FeatherIcon from './FeatherIcon'; // Assuming FeatherIcon exists
 
 interface TabButtonOption<T> {
   label?: string; // Label is optional if icon is provided
   value: T;
-  icon?: FeatherIconName;
+  icon?: string;
   hideLabel?: boolean;
 }
 

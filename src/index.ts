@@ -15,7 +15,7 @@ export { Divider } from './components/Divider';
 export { default as Dropdown } from './components/Dropdown';
 export { default as EmojiList } from './components/EmojiList';
 export { ErrorMessage } from './components/ErrorMessage';
-export { FeatherIcon } from './components/FeatherIcon';
+export { default as FeatherIcon } from './components/FeatherIcon';
 export { FileUploader } from './components/FileUploader';
 export { default as FontColor } from './components/FontColor';
 export { FormControl } from './components/FormControl';

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { FeatherIcon } from '../FeatherIcon';
+import FeatherIcon from '../FeatherIcon';
 // Assuming ListContext is defined elsewhere (e.g., ListView.tsx) and imported
 // import { ListContext } from './ListView'; // Placeholder
 

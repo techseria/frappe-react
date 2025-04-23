@@ -1,13 +1,13 @@
 import toast, { ToastOptions, ToastPosition, Toast as ToastType } from 'react-hot-toast';
 import { ReactNode } from 'react';
-import { FeatherIcon, FeatherIconName } from '../components/FeatherIcon';
+import FeatherIcon from '../components/FeatherIcon';
 import clsx from 'clsx';
 
 // Define custom toast options
 interface ShowToastOptions extends ToastOptions {
   title?: ReactNode;
   message: ReactNode;
-  icon?: FeatherIconName;
+  icon?: string;
   iconClasses?: string;
   type?: 'success' | 'error' | 'info' | 'warning' | 'loading';
   actions?: ReactNode;
@@ -16,7 +16,7 @@ interface ShowToastOptions extends ToastOptions {
 }
 
 // Map types to icons and classes
-const typeIconMap: Record<NonNullable<ShowToastOptions['type']>, FeatherIconName> = {
+const typeIconMap: Record<NonNullable<ShowToastOptions['type']>, string> = {
   success: 'check', error: 'x', info: 'info', warning: 'help-circle', loading: 'clock',
 };
 const typeIconClasses: Record<NonNullable<ShowToastOptions['type']>, string> = {

@@ -199,7 +199,7 @@ This document provides detailed usage examples for components available in the `
 - **Description:** Renders icons from the Feather Icons library.
 - **Usage Example:**
   ```tsx
-  import { FeatherIcon } from '@techseria/frappe-react-ui';
+  import FeatherIcon from from '@techseria/frappe-react-ui';
 
   <FeatherIcon icon="settings" />
   ```

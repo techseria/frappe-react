@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react' // Removed useEffect
 import Button from '../Button'
 import { TabButtons } from '../TabButtons'
-import { FeatherIcon } from '../FeatherIcon'
+import FeatherIcon from '../FeatherIcon'
 import CalendarMonthly from './CalendarMonthly'
 import CalendarWeekly from './CalendarWeekly'
 import CalendarDaily from './CalendarDaily'

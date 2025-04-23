@@ -2,8 +2,7 @@ import React, { useContext, useMemo, Fragment } from 'react';
 import { Transition } from '@headlessui/react';
 import { Checkbox } from '../Checkbox'; // Assuming Checkbox exists
 import { Button } from '../Button/Button'; // Assuming Button exists
-// Assuming ListContext is defined elsewhere (e.g., ListView.tsx) and imported
-// import { ListContext } from './ListView'; // Placeholder
+import { ListViewContext } from './ListView'; // Adjust path as needed
 
 // TODO: Define ListContextValue properly, likely in ListView.tsx or a types file
 interface ListContextValue<T = any> {
@@ -12,9 +11,6 @@ interface ListContextValue<T = any> {
   toggleAllRows: (select: boolean) => void; // Function to select/deselect all
   // ... other context properties
 }
-
-// Placeholder context - replace with actual import
-const ListContext = React.createContext<ListContextValue | null>(null);
 
 interface ListSelectBannerProps<T> {
   className?: string;
@@ -28,7 +24,7 @@ interface ListSelectBannerProps<T> {
 }
 
 export function ListSelectBanner<T extends { [key: string]: any }>() {
-  const list = useContext(ListContext);
+  const list = useContext(ListViewContext);
 
   if (!list) {
     // Don't render if not inside a provider

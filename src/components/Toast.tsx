@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { FeatherIcon, FeatherIconName } from './FeatherIcon'
+import FeatherIcon from './FeatherIcon'
 
 export type ToastProps = {
   position?: 'top-right' | 'top-center' | 'top-left' | 'bottom-right' | 'bottom-center' | 'bottom-left'
-  icon?: FeatherIconName
+  icon?: string
   iconClasses?: string
   title?: string
   text?: string

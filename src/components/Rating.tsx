@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FeatherIcon } from './FeatherIcon'
+import FeatherIcon from './FeatherIcon'
 
 interface RatingProps {
   value?: number

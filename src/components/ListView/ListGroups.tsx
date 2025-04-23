@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { ListGroupHeader, ListGroup } from './ListGroupHeader'; // Import group type and header component
 import { ListGroupRows } from './ListGroupRows'; // Import group rows component
-// Assuming ListContext is defined elsewhere (e.g., ListView.tsx) and imported
-// import { ListContext } from './ListView'; // Placeholder
+import { ListViewContext } from './ListView'; // Assuming context is defined in ListView.tsx
 
 // TODO: Define ListContextValue properly, likely in ListView.tsx or a types file
 // This context needs to provide the grouped data and a way to toggle group collapse state
@@ -13,11 +12,8 @@ interface ListContextValue<T = any> {
   // ... other context properties
 }
 
-// Placeholder context - replace with actual import
-const ListContext = React.createContext<ListContextValue | null>(null);
-
 export function ListGroups<T extends { [key: string]: any }>() {
-  const list = useContext(ListContext);
+  const list = useContext(ListViewContext);
 
   if (!list) {
     console.error('ListGroups must be used within a ListProvider');

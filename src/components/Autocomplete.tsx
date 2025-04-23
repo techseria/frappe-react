@@ -2,7 +2,7 @@ import { useState, useMemo, useRef, useEffect } from 'react'
 import { Combobox } from '@headlessui/react'
 import { Popover } from './Popover'
 import { Button } from './Button/Button'
-import { FeatherIcon } from './FeatherIcon'
+import FeatherIcon from './FeatherIcon'
 import { LoadingIndicator } from './LoadingIndicator'
 
 type Option = {
